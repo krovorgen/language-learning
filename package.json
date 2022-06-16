@@ -6,13 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup": "NODE_OPTIONS='--experimental-json-modules' node ./scripts/setup.mjs"
   },
   "dependencies": {
     "@alfalab/core-components": "^27.6.2",
     "@alfalab/icons-classic": "^2.2.0",
     "@alfalab/icons-glyph": "^2.32.0",
     "classnames": "^2.3.1",
+    "dotenv": "^16.0.1",
+    "mongodb": "^4.7.0",
     "next": "^12.1.6",
     "next-global-css": "^1.3.1",
     "react": "^18.2.0",
