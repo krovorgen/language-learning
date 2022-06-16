@@ -1,7 +1,12 @@
 import type { NextPage } from 'next';
+import { Button } from '@alfalab/core-components/button';
 
 const Home: NextPage = () => {
-  return <div>hello world</div>;
+  return (
+    <div>
+      <Button>Hello world</Button>
+    </div>
+  );
 };
 
 export default Home;
