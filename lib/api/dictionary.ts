@@ -14,16 +14,13 @@ export type CreateBodyType = {
   translation: string;
 };
 
+const dictionary = clientPromise.db('test').collection<DictionaryType>('dictionary');
+
 export async function getDictionary(): Promise<any> {
-  const client = await clientPromise;
-  const collection = client.db('test').collection<DictionaryType>('dictionary');
-  return collection.find({}, { projection: { _id: 0 } }).toArray();
+  return await dictionary.find({}, { projection: { _id: 0 } }).toArray();
 }
 export async function createDictionary(body: CreateBodyType): Promise<any> {
-  const client = await clientPromise;
-  const collection = client.db('test').collection<DictionaryType>('dictionary');
-
-  const data: DictionaryType = { ...body, id: +new Date(), point: 0 };
-
-  return await collection.insertOne(data);
+  const newDictionary: DictionaryType = { ...body, id: +new Date(), point: 0 };
+  await dictionary.insertOne(newDictionary);
+  return newDictionary;
 }

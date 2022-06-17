@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { DictionaryType, getDictionary } from '@/lib/api/dictionary';
 import { Table } from '@alfalab/core-components/table';
+import Head from 'next/head';
 
 type Props = {
   dictionary: DictionaryType[];
@@ -13,6 +14,10 @@ enum DictionaryLanguage {
 const Home: NextPage<Props> = ({ dictionary }) => {
   return (
     <>
+      <Head>
+        <title>Словарь</title>
+        <meta property="og:title" content="Словарь" key="title" />
+      </Head>
       <Table>
         <Table.THead>
           <Table.THeadCell title="Слово">Слово</Table.THeadCell>
