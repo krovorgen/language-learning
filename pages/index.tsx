@@ -15,8 +15,8 @@ const Home: NextPage<Props> = ({ dictionary }) => {
   return (
     <>
       <Head>
-        <title>Словарь</title>
-        <meta property="og:title" content="Словарь" key="title" />
+        <title>Dictionary</title>
+        <meta property="og:title" content="Dictionary" key="title" />
       </Head>
       <Table>
         <Table.THead>
