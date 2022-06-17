@@ -15,16 +15,18 @@ const Home: NextPage<Props> = ({ dictionary }) => {
     <>
       <Table>
         <Table.THead>
-          <Table.THeadCell title="Язык">Язык</Table.THeadCell>
           <Table.THeadCell title="Слово">Слово</Table.THeadCell>
           <Table.THeadCell title="Перевод">Перевод</Table.THeadCell>
+          <Table.THeadCell title="Язык" width={100} textAlign="center">
+            Язык
+          </Table.THeadCell>
         </Table.THead>
         <Table.TBody>
           {dictionary.map((row) => (
             <Table.TRow key={row.id}>
-              <Table.TCell>{DictionaryLanguage[row.lang]}</Table.TCell>
               <Table.TCell>{row.word}</Table.TCell>
               <Table.TCell>{row.translation}</Table.TCell>
+              <Table.TCell>{row.lang}</Table.TCell>
             </Table.TRow>
           ))}
         </Table.TBody>
