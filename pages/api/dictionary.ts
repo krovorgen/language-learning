@@ -14,8 +14,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       break;
     case 'POST':
       try {
-        const result = await createDictionary(req.body);
-        return res.status(200).json(result);
+        const createDictionaryDto = await createDictionary(req.body);
+        return res.status(200).json(createDictionaryDto);
       } catch ({ response }) {
         catchHandler(response);
       }
