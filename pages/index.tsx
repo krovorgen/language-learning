@@ -13,7 +13,6 @@ enum DictionaryLanguage {
 const Home: NextPage<Props> = ({ dictionary }) => {
   return (
     <>
-      <h1>11</h1>
       <Table>
         <Table.THead>
           <Table.THeadCell title="Язык">Язык</Table.THeadCell>
