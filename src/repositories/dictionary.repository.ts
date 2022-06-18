@@ -1,4 +1,4 @@
-import clientPromise from '@/lib/mongodb';
+import clientPromise from '@/repositories/mongodb';
 import { DeleteResult, UpdateResult } from 'mongodb';
 
 export type DictionaryLangType = 'eng' | 'tr';
