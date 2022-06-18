@@ -1,4 +1,5 @@
 import clientPromise from '../mongodb';
+import { UpdateResult } from 'mongodb';
 
 export type DictionaryType = {
   id: number;
@@ -25,6 +26,9 @@ const dictionary = clientPromise.db('test').collection<DictionaryType>('dictiona
 export async function getDictionary(): Promise<DictionaryType[]> {
   return await dictionary.find({}, { projection: { _id: 0 } }).toArray();
 }
+export async function getDictionaryById(id: string): Promise<DictionaryType | null> {
+  return await dictionary.findOne({ id: +id }, { projection: { _id: 0 } });
+}
 export async function createDictionary(
   createDictionaryDto: CreateDictionaryDtoType,
 ): Promise<DictionaryType> {
@@ -35,8 +39,8 @@ export async function createDictionary(
 export async function updateDictionary(
   id: string,
   updateDictionaryDto: UpdateDictionaryDtoType,
-): Promise<void> {
-  await dictionary.updateOne({ id: +id }, { $set: updateDictionaryDto });
+): Promise<UpdateResult> {
+  return await dictionary.updateOne({ id: +id }, { $set: updateDictionaryDto });
 }
 export async function deleteDictionary(id: string): Promise<void> {
   await dictionary.deleteOne({ id: +id });
