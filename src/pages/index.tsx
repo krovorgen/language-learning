@@ -7,6 +7,7 @@ import ru from 'dayjs/locale/ru';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Eng } from '@/components/Flags/Eng';
 import { Tr } from '@/components/Flags/Tr';
+import { SoundWord } from '@/components/SoundWord';
 
 import styles from './Root.module.scss';
 
@@ -41,7 +42,9 @@ const Home: NextPage<Props> = ({ dictionary }) => {
         <Table.TBody>
           {dictionary.map((row) => (
             <Table.TRow key={row.id}>
-              <Table.TCell>{row.word}</Table.TCell>
+              <Table.TCell>
+                {row.word} <SoundWord word={row.word} lang={row.lang} />
+              </Table.TCell>
               <Table.TCell>
                 <ul>
                   {row.translation.map((item, index) => (
