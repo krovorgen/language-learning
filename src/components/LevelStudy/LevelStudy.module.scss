@@ -5,7 +5,7 @@
   display: inline-block;
   width: 71px;
   height: 18px;
-  background-image: url("../../../public/images/level-study.svg");
+  background-image: url("#{$img-path}level-study.svg");
   background-repeat: no-repeat;
 
   &.low {
