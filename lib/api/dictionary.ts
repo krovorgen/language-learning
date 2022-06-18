@@ -5,20 +5,22 @@ export type DictionaryType = {
   id: number;
   lang: 'eng';
   word: string;
-  translation: string;
+  translation: string[];
   point: number;
+  lastRepetition: Date;
 };
 
 export type CreateDictionaryDtoType = {
   lang: 'eng';
   word: string;
-  translation: string;
+  translation: string[];
 };
 
 export type UpdateDictionaryDtoType = {
   word: string;
-  translation: string;
+  translation: string[];
   point: number;
+  lastRepetition: Date;
 };
 
 const dictionary = clientPromise.db('test').collection<DictionaryType>('dictionary');
@@ -32,7 +34,12 @@ export async function getDictionaryById(id: string): Promise<DictionaryType | nu
 export async function createDictionary(
   createDictionaryDto: CreateDictionaryDtoType,
 ): Promise<DictionaryType> {
-  const newDictionary: DictionaryType = { ...createDictionaryDto, id: +new Date(), point: 0 };
+  const newDictionary: DictionaryType = {
+    ...createDictionaryDto,
+    id: +new Date(),
+    point: 0,
+    lastRepetition: new Date(),
+  };
   await dictionary.insertOne(newDictionary);
   return newDictionary;
 }

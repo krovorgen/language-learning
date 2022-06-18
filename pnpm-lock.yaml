@@ -8,6 +8,7 @@ specifiers:
   '@types/react': ^18.0.13
   '@types/react-dom': ^18.0.5
   classnames: ^2.3.1
+  dayjs: ^1.11.3
   dotenv: ^16.0.1
   eslint: ^8.17.0
   eslint-config-next: ^12.1.6
@@ -30,6 +31,7 @@ dependencies:
   '@alfalab/icons-classic': 2.2.0_biqbaboplfbrettd7655fr4n2y
   '@alfalab/icons-glyph': 2.33.0_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.1
+  dayjs: 1.11.3
   dotenv: 16.0.1
   mongodb: 4.7.0
   next: 12.1.5_pa3haiehbu3xg5t3tpqo552bfa
@@ -1365,6 +1367,10 @@ packages:
   /date-fns/2.16.1:
     resolution: {integrity: sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==}
     engines: {node: '>=0.11'}
+    dev: false
+
+  /dayjs/1.11.3:
+    resolution: {integrity: sha512-xxwlswWOlGhzgQ4TKzASQkUhqERI3egRNqgV4ScR8wlANA/A9tZ7miXa44vTTKEq5l7vWoL5G57bG3zA+Kow0A==}
     dev: false
 
   /debug/2.6.9:
