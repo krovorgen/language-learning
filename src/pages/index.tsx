@@ -9,6 +9,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { Eng } from '@/components/Flags/Eng';
 import { Tr } from '@/components/Flags/Tr';
 import { SoundWord } from '@/components/SoundWord';
+import { IconNavigationLinkType, NavigationLink } from '@/components/TrainingLink';
+import { AppRoutes } from '@/helpers/routes';
 
 import styles from './Root.module.scss';
 
@@ -119,6 +121,7 @@ const Home: NextPage<Props> = ({ dictionary }) => {
           ))}
         </Table.TBody>
       </Table>
+      <NavigationLink href={AppRoutes.learning} icon={IconNavigationLinkType.learning} />
     </>
   );
 };
