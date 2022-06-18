@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { Table } from '@alfalab/core-components/table';
 import { LevelStudy } from '@/components/LevelStudy';
-import { DictionaryType, getDictionary } from '@/lib/api/dictionary';
+import { dictionaryRepository, DictionaryType } from '@/repositories/dictionary.repository';
 import dayjs from 'dayjs';
 import ru from 'dayjs/locale/ru';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -68,7 +68,7 @@ const Home: NextPage<Props> = ({ dictionary }) => {
 };
 
 export async function getStaticProps() {
-  const dictionary = JSON.parse(JSON.stringify(await getDictionary()));
+  const dictionary = JSON.parse(JSON.stringify(await dictionaryRepository.getDictionary()));
 
   return {
     props: {

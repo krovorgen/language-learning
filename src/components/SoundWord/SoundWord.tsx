@@ -1,6 +1,6 @@
 import React, { FC, memo, useCallback } from 'react';
 
-import { DictionaryLangType } from '@/lib/api/dictionary';
+import { DictionaryLangType } from '@/repositories/dictionary.repository';
 
 import styles from './SoundWord.module.scss';
 
