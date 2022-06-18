@@ -24,8 +24,8 @@ dayjs.extend(relativeTime).locale(ru);
 const Home: NextPage<Props> = ({ dictionary }) => {
   return (
     <>
-      <Table>
-        <Table.THead className={styles.thead}>
+      <Table className={styles.table}>
+        <Table.THead>
           <Table.THeadCell title="Слово">Слово</Table.THeadCell>
           <Table.THeadCell title="Перевод">Перевод</Table.THeadCell>
           <Table.THeadCell title="Владение" width={100} textAlign="center">
