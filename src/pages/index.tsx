@@ -1,3 +1,4 @@
+import { useCallback, useMemo, useState } from 'react';
 import { NextPage } from 'next';
 import { Table } from '@alfalab/core-components/table';
 import { LevelStudy } from '@/components/LevelStudy';
@@ -10,7 +11,6 @@ import { Tr } from '@/components/Flags/Tr';
 import { SoundWord } from '@/components/SoundWord';
 
 import styles from './Root.module.scss';
-import { useMemo } from 'react';
 
 type Props = {
   dictionary: DictionaryType[];
@@ -21,51 +21,103 @@ const FlagsIcon = {
   tr: <Tr />,
 };
 
+enum SortTableValue {
+  point = 'point',
+  lastTraining = 'lastTraining',
+  lang = 'lang',
+}
+
 dayjs.extend(relativeTime).locale(ru);
 
 const Home: NextPage<Props> = ({ dictionary }) => {
-  const dictionaryMemo = useMemo(
-    () =>
-      dictionary.map((row) => (
-        <Table.TRow key={row.id}>
-          <Table.TCell>
-            {row.word} <SoundWord word={row.word} lang={row.lang} />
-          </Table.TCell>
-          <Table.TCell>
-            <ul>
-              {row.translation.map((item, index) => (
-                <li key={index}>
-                  {index + 1}. {item}
-                </li>
-              ))}
-            </ul>
-          </Table.TCell>
-          <Table.TCell>
-            <LevelStudy point={row.point} />
-          </Table.TCell>
-          <Table.TCell>{dayjs(row.lastRepetition).fromNow()}</Table.TCell>
-          <Table.TCell className={styles.flag}>{FlagsIcon[row.lang]}</Table.TCell>
-        </Table.TRow>
-      )),
-    [dictionary],
+  const [sortKey, setSortKey] = useState<SortTableValue | undefined>(undefined);
+  const [isSortedDesc, setIsSortedDesc] = useState<boolean | undefined>(undefined);
+
+  const handleSort = useCallback(
+    (key: SortTableValue) => {
+      setSortKey(key);
+      if (isSortedDesc !== undefined) {
+        setIsSortedDesc(!isSortedDesc ? undefined : false);
+      } else {
+        setIsSortedDesc(true);
+      }
+    },
+    [isSortedDesc],
   );
+
+  const sortedDictionary = useMemo(() => {
+    if (!sortKey || isSortedDesc === undefined) return dictionary;
+    return [...dictionary].sort((a, b) => {
+      if (sortKey === SortTableValue.point) {
+        return isSortedDesc ? b.point - a.point : a.point - b.point;
+      }
+      if (sortKey === SortTableValue.lastTraining) {
+        return isSortedDesc
+          ? b.lastRepetition.toString().localeCompare(a.lastRepetition.toString())
+          : a.lastRepetition.toString().localeCompare(b.lastRepetition.toString());
+      }
+      if (sortKey === SortTableValue.lang) {
+        return isSortedDesc ? b.lang.localeCompare(a.lang) : a.lang.localeCompare(b.lang);
+      }
+
+      return 0;
+    });
+  }, [dictionary, isSortedDesc, sortKey]);
+
   return (
     <>
       <Table className={styles.table}>
         <Table.THead>
           <Table.THeadCell>Слово</Table.THeadCell>
           <Table.THeadCell>Перевод</Table.THeadCell>
-          <Table.THeadCell width={100} textAlign="center">
+          <Table.TSortableHeadCell
+            width={100}
+            textAlign="center"
+            className={styles.sortTh}
+            isSortedDesc={sortKey === SortTableValue.point ? isSortedDesc : undefined}
+            onSort={() => handleSort(SortTableValue.point)}>
             Владение
-          </Table.THeadCell>
-          <Table.THeadCell width={200} textAlign="center">
+          </Table.TSortableHeadCell>
+          <Table.TSortableHeadCell
+            width={200}
+            textAlign="center"
+            className={styles.sortTh}
+            isSortedDesc={sortKey === SortTableValue.lastTraining ? isSortedDesc : undefined}
+            onSort={() => handleSort(SortTableValue.lastTraining)}>
             Последняя тренировка
-          </Table.THeadCell>
-          <Table.THeadCell width={100} textAlign="center">
+          </Table.TSortableHeadCell>
+          <Table.TSortableHeadCell
+            width={100}
+            textAlign="center"
+            className={styles.sortTh}
+            isSortedDesc={sortKey === SortTableValue.lang ? isSortedDesc : undefined}
+            onSort={() => handleSort(SortTableValue.lang)}>
             Язык
-          </Table.THeadCell>
+          </Table.TSortableHeadCell>
         </Table.THead>
-        <Table.TBody>{dictionaryMemo}</Table.TBody>
+        <Table.TBody>
+          {sortedDictionary.map((row) => (
+            <Table.TRow key={row.id}>
+              <Table.TCell>
+                {row.word} <SoundWord word={row.word} lang={row.lang} />
+              </Table.TCell>
+              <Table.TCell>
+                <ul>
+                  {row.translation.map((item, index) => (
+                    <li key={index}>
+                      {index + 1}. {item}
+                    </li>
+                  ))}
+                </ul>
+              </Table.TCell>
+              <Table.TCell>
+                <LevelStudy point={row.point} />
+              </Table.TCell>
+              <Table.TCell>{dayjs(row.lastRepetition).fromNow()}</Table.TCell>
+              <Table.TCell className={styles.flag}>{FlagsIcon[row.lang]}</Table.TCell>
+            </Table.TRow>
+          ))}
+        </Table.TBody>
       </Table>
     </>
   );
