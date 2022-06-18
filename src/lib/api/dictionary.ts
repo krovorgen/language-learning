@@ -1,9 +1,11 @@
 import clientPromise from '../mongodb';
 import { DeleteResult, UpdateResult } from 'mongodb';
 
+export type DictionaryLangType = 'eng' | 'tr';
+
 export type DictionaryType = {
   id: number;
-  lang: 'eng' | 'tr';
+  lang: DictionaryLangType;
   word: string;
   translation: string[];
   point: number;
@@ -11,7 +13,7 @@ export type DictionaryType = {
 };
 
 export type CreateDictionaryDtoType = {
-  lang: 'eng' | 'tr';
+  lang: DictionaryLangType;
   word: string;
   translation: string[];
 };

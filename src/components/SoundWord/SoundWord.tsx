@@ -1,10 +1,12 @@
 import React, { FC, memo, useCallback } from 'react';
 
+import { DictionaryLangType } from '@/lib/api/dictionary';
+
 import styles from './SoundWord.module.scss';
 
 type Props = {
   word: string;
-  lang: 'tr' | 'eng';
+  lang: DictionaryLangType;
 };
 
 enum LangISO {
