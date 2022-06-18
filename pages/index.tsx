@@ -1,14 +1,22 @@
 import { NextPage } from 'next';
-import Head from 'next/head';
 import { Table } from '@alfalab/core-components/table';
 import { LevelStudy } from '@/components/LevelStudy';
 import { DictionaryType, getDictionary } from '@/lib/api/dictionary';
 import dayjs from 'dayjs';
 import ru from 'dayjs/locale/ru';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { Eng } from '@/components/Flags/Eng';
+import { Tr } from '@/components/Flags/Tr';
+
+import styles from './Root.module.scss';
 
 type Props = {
   dictionary: DictionaryType[];
+};
+
+const FlagsIcon = {
+  eng: <Eng />,
+  tr: <Tr />,
 };
 
 dayjs.extend(relativeTime).locale(ru);
@@ -16,16 +24,16 @@ dayjs.extend(relativeTime).locale(ru);
 const Home: NextPage<Props> = ({ dictionary }) => {
   return (
     <>
-      <Head>
-        <title>Dictionary</title>
-        <meta property="og:title" content="Dictionary" key="title" />
-      </Head>
       <Table>
-        <Table.THead>
+        <Table.THead className={styles.thead}>
           <Table.THeadCell title="Слово">Слово</Table.THeadCell>
           <Table.THeadCell title="Перевод">Перевод</Table.THeadCell>
-          <Table.THeadCell title="Владение">Владение</Table.THeadCell>
-          <Table.THeadCell title="Последняя тренировка">Последняя тренировка</Table.THeadCell>
+          <Table.THeadCell title="Владение" width={100} textAlign="center">
+            Владение
+          </Table.THeadCell>
+          <Table.THeadCell title="Последняя тренировка" width={200} textAlign="center">
+            Последняя тренировка
+          </Table.THeadCell>
           <Table.THeadCell title="Язык" width={100} textAlign="center">
             Язык
           </Table.THeadCell>
@@ -47,7 +55,7 @@ const Home: NextPage<Props> = ({ dictionary }) => {
                 <LevelStudy point={row.point} />
               </Table.TCell>
               <Table.TCell>{dayjs(row.lastRepetition).fromNow()}</Table.TCell>
-              <Table.TCell>{row.lang}</Table.TCell>
+              <Table.TCell className={styles.flag}>{FlagsIcon[row.lang]}</Table.TCell>
             </Table.TRow>
           ))}
         </Table.TBody>

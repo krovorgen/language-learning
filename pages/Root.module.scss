@@ -1,0 +1,15 @@
+@import "./scss/helpers/variables";
+@import "./scss/helpers/mixins";
+
+.flag {
+  svg {
+    height: 18px;
+  }
+}
+
+.thead {
+  th,
+  tr {
+    vertical-align: middle;
+  }
+}

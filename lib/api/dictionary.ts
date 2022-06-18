@@ -3,7 +3,7 @@ import { DeleteResult, UpdateResult } from 'mongodb';
 
 export type DictionaryType = {
   id: number;
-  lang: 'eng';
+  lang: 'eng' | 'tr';
   word: string;
   translation: string[];
   point: number;
@@ -11,7 +11,7 @@ export type DictionaryType = {
 };
 
 export type CreateDictionaryDtoType = {
-  lang: 'eng';
+  lang: 'eng' | 'tr';
   word: string;
   translation: string[];
 };
