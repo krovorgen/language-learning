@@ -10,6 +10,7 @@ import { Tr } from '@/components/Flags/Tr';
 import { SoundWord } from '@/components/SoundWord';
 
 import styles from './Root.module.scss';
+import { useMemo } from 'react';
 
 type Props = {
   dictionary: DictionaryType[];
@@ -23,45 +24,48 @@ const FlagsIcon = {
 dayjs.extend(relativeTime).locale(ru);
 
 const Home: NextPage<Props> = ({ dictionary }) => {
+  const dictionaryMemo = useMemo(
+    () =>
+      dictionary.map((row) => (
+        <Table.TRow key={row.id}>
+          <Table.TCell>
+            {row.word} <SoundWord word={row.word} lang={row.lang} />
+          </Table.TCell>
+          <Table.TCell>
+            <ul>
+              {row.translation.map((item, index) => (
+                <li key={index}>
+                  {index + 1}. {item}
+                </li>
+              ))}
+            </ul>
+          </Table.TCell>
+          <Table.TCell>
+            <LevelStudy point={row.point} />
+          </Table.TCell>
+          <Table.TCell>{dayjs(row.lastRepetition).fromNow()}</Table.TCell>
+          <Table.TCell className={styles.flag}>{FlagsIcon[row.lang]}</Table.TCell>
+        </Table.TRow>
+      )),
+    [dictionary],
+  );
   return (
     <>
       <Table className={styles.table}>
         <Table.THead>
-          <Table.THeadCell title="Слово">Слово</Table.THeadCell>
-          <Table.THeadCell title="Перевод">Перевод</Table.THeadCell>
-          <Table.THeadCell title="Владение" width={100} textAlign="center">
+          <Table.THeadCell>Слово</Table.THeadCell>
+          <Table.THeadCell>Перевод</Table.THeadCell>
+          <Table.THeadCell width={100} textAlign="center">
             Владение
           </Table.THeadCell>
-          <Table.THeadCell title="Последняя тренировка" width={200} textAlign="center">
+          <Table.THeadCell width={200} textAlign="center">
             Последняя тренировка
           </Table.THeadCell>
-          <Table.THeadCell title="Язык" width={100} textAlign="center">
+          <Table.THeadCell width={100} textAlign="center">
             Язык
           </Table.THeadCell>
         </Table.THead>
-        <Table.TBody>
-          {dictionary.map((row) => (
-            <Table.TRow key={row.id}>
-              <Table.TCell>
-                {row.word} <SoundWord word={row.word} lang={row.lang} />
-              </Table.TCell>
-              <Table.TCell>
-                <ul>
-                  {row.translation.map((item, index) => (
-                    <li key={index}>
-                      {index + 1}. {item}
-                    </li>
-                  ))}
-                </ul>
-              </Table.TCell>
-              <Table.TCell>
-                <LevelStudy point={row.point} />
-              </Table.TCell>
-              <Table.TCell>{dayjs(row.lastRepetition).fromNow()}</Table.TCell>
-              <Table.TCell className={styles.flag}>{FlagsIcon[row.lang]}</Table.TCell>
-            </Table.TRow>
-          ))}
-        </Table.TBody>
+        <Table.TBody>{dictionaryMemo}</Table.TBody>
       </Table>
     </>
   );
