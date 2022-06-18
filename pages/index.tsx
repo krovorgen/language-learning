@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { Table } from '@alfalab/core-components/table/modern';
+import { Table } from '@alfalab/core-components/table';
 import { LevelStudy } from '@/components/LevelStudy';
 import { DictionaryType, getDictionary } from '@/lib/api/dictionary';
 
