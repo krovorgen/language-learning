@@ -1,0 +1,25 @@
+@import "./scss/helpers/variables";
+@import "./scss/helpers/mixins";
+
+.root {
+  display: inline-block;
+  width: 71px;
+  height: 18px;
+  background-image: url("../../public/images/level-study.svg");
+
+  &.low {
+    background-position: 0 -144px;
+  }
+
+  &.medium {
+    background-position: -72px -144px;
+  }
+
+  &.high {
+    background-position: -144px -144px;
+  }
+
+  &.perfect {
+    background-position: -216px -144px;
+  }
+}
