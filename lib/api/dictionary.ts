@@ -1,5 +1,5 @@
 import clientPromise from '../mongodb';
-import { UpdateResult } from 'mongodb';
+import { DeleteResult, UpdateResult } from 'mongodb';
 
 export type DictionaryType = {
   id: number;
@@ -42,6 +42,6 @@ export async function updateDictionary(
 ): Promise<UpdateResult> {
   return await dictionary.updateOne({ id: +id }, { $set: updateDictionaryDto });
 }
-export async function deleteDictionary(id: string): Promise<void> {
-  await dictionary.deleteOne({ id: +id });
+export async function deleteDictionary(id: string): Promise<DeleteResult> {
+  return await dictionary.deleteOne({ id: +id });
 }

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getDictionaryById, updateDictionary } from '@/lib/api/dictionary';
+import { deleteDictionary, getDictionaryById, updateDictionary } from '@/lib/api/dictionary';
 import { catchHandler } from '@/lib/catchHandler';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -17,6 +17,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     case 'PATCH':
       try {
         const updateDictionaryDtoType = await updateDictionary(id as string, req.body);
+        return res.status(200).json(updateDictionaryDtoType);
+      } catch ({ response }) {
+        catchHandler(response);
+      }
+      break;
+    case 'DELETE':
+      try {
+        const updateDictionaryDtoType = await deleteDictionary(id as string);
         return res.status(200).json(updateDictionaryDtoType);
       } catch ({ response }) {
         catchHandler(response);
