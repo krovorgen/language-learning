@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
 import Link from 'next/link';
+import cn from 'classnames';
 
 import BookCheckMIcon from '@alfalab/icons-glyph/BookCheckMIcon';
 import NavigationHomeMIcon from '@alfalab/icons-glyph/NavigationHomeMIcon';
@@ -25,7 +26,7 @@ type Props = {
 export const NavigationLink: FC<Props> = memo(({ href, icon }) => {
   return (
     <Link href={href} passHref>
-      <a className={styles.root}>{navigationLinkIcon[icon]}</a>
+      <a className={cn('link-navigation', styles.root)}>{navigationLinkIcon[icon]}</a>
     </Link>
   );
 });

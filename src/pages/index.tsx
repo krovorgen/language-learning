@@ -11,6 +11,8 @@ import { Tr } from '@/components/Flags/Tr';
 import { SoundWord } from '@/components/SoundWord';
 import { IconNavigationLinkType, NavigationLink } from '@/components/TrainingLink';
 import { AppRoutes } from '@/helpers/routes';
+import { AddedWordLink } from '@/components/AddedWordLink';
+import { NavigationMenu } from '@/components/NavigationMenu';
 
 import styles from './Root.module.scss';
 
@@ -34,6 +36,10 @@ dayjs.extend(relativeTime).locale(ru);
 const Home: NextPage<Props> = ({ dictionary }) => {
   const [sortKey, setSortKey] = useState<SortTableValue | undefined>(undefined);
   const [isSortedDesc, setIsSortedDesc] = useState<boolean | undefined>(undefined);
+  const [openAddedWordModal, setOpenAddedWordModal] = useState(false);
+  const handleAddedWordModalOpen = useCallback(() => {
+    setOpenAddedWordModal((v) => !v);
+  }, []);
 
   const handleSort = useCallback(
     (key: SortTableValue) => {
@@ -121,7 +127,10 @@ const Home: NextPage<Props> = ({ dictionary }) => {
           ))}
         </Table.TBody>
       </Table>
-      <NavigationLink href={AppRoutes.learning} icon={IconNavigationLinkType.learning} />
+      <NavigationMenu>
+        <AddedWordLink handleModalOpen={handleAddedWordModalOpen} open={openAddedWordModal} />
+        <NavigationLink href={AppRoutes.learning} icon={IconNavigationLinkType.learning} />
+      </NavigationMenu>
     </>
   );
 };
