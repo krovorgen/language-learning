@@ -109,15 +109,7 @@ const Home: NextPage<Props> = ({ dictionary }) => {
               <Table.TCell>
                 {row.word} <SoundWord word={row.word} lang={row.lang} />
               </Table.TCell>
-              <Table.TCell>
-                <ul>
-                  {row.translation.map((item, index) => (
-                    <li key={index}>
-                      {index + 1}. {item}
-                    </li>
-                  ))}
-                </ul>
-              </Table.TCell>
+              <Table.TCell>{row.translation}</Table.TCell>
               <Table.TCell>
                 <LevelStudy point={row.point} />
               </Table.TCell>

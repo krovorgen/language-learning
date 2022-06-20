@@ -7,7 +7,7 @@ export type DictionaryType = {
   id: number;
   lang: DictionaryLangType;
   word: string;
-  translation: string[];
+  translation: string;
   point: number;
   lastRepetition: Date;
 };
@@ -15,12 +15,12 @@ export type DictionaryType = {
 export type CreateDictionaryDtoType = {
   lang: DictionaryLangType;
   word: string;
-  translation: string[];
+  translation: string;
 };
 
 export type UpdateDictionaryDtoType = {
   word: string;
-  translation: string[];
+  translation: string;
   point: number;
   lastRepetition: Date;
 };

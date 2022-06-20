@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import cn from 'classnames';
 
-import { ModalResponsive } from '@alfalab/core-components/modal/Component.responsive';
+import { AddedWordModal } from '@/components/AddedWordModal';
 
 import styles from './AdminTools.module.scss';
 
@@ -16,13 +16,7 @@ export const AddedWordLink: FC<Props> = memo(({ handleModalOpen, open }) => {
       <button className={cn('link-navigation', styles.root)} onClick={handleModalOpen}>
         A
       </button>
-      <ModalResponsive open={open} onClose={handleModalOpen} fixedPosition={true}>
-        <ModalResponsive.Header />
-        <ModalResponsive.Content>
-          <p>hello world</p>
-        </ModalResponsive.Content>
-        <ModalResponsive.Footer></ModalResponsive.Footer>
-      </ModalResponsive>
+      <AddedWordModal open={open} handleModalOpen={handleModalOpen} />
     </>
   );
 });
