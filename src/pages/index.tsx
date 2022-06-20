@@ -1,8 +1,10 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NextPage } from 'next';
 import { Table } from '@alfalab/core-components/table';
 import { LevelStudy } from '@/components/LevelStudy';
 import { dictionaryRepository, DictionaryType } from '@/repositories/dictionary.repository';
+import axios from 'axios';
+import { catchHandler } from '@/helpers/catchHandler';
 import dayjs from 'dayjs';
 import ru from 'dayjs/locale/ru';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -34,6 +36,7 @@ enum SortTableValue {
 dayjs.extend(relativeTime).locale(ru);
 
 const Home: NextPage<Props> = ({ dictionary }) => {
+  const [dictionaryData, setDictionaryData] = useState(dictionary);
   const [sortKey, setSortKey] = useState<SortTableValue | undefined>(undefined);
   const [isSortedDesc, setIsSortedDesc] = useState<boolean | undefined>(undefined);
   const [openAddedWordModal, setOpenAddedWordModal] = useState(false);
@@ -54,8 +57,8 @@ const Home: NextPage<Props> = ({ dictionary }) => {
   );
 
   const sortedDictionary = useMemo(() => {
-    if (!sortKey || isSortedDesc === undefined) return dictionary;
-    return [...dictionary].sort((a, b) => {
+    if (!sortKey || isSortedDesc === undefined) return dictionaryData;
+    return [...dictionaryData].sort((a, b) => {
       if (sortKey === SortTableValue.point) {
         return isSortedDesc ? b.point - a.point : a.point - b.point;
       }
@@ -70,7 +73,20 @@ const Home: NextPage<Props> = ({ dictionary }) => {
 
       return 0;
     });
-  }, [dictionary, isSortedDesc, sortKey]);
+  }, [dictionaryData, isSortedDesc, sortKey]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (openAddedWordModal) return;
+        const res = await axios.get(`/api/dictionary`);
+        setDictionaryData(res.data);
+      } catch ({ response }) {
+        catchHandler(response);
+      } finally {
+      }
+    })();
+  }, [openAddedWordModal]);
 
   return (
     <>
