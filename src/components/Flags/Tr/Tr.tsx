@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC, SVGProps } from 'react';
 
-export const Tr = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+export const Tr: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width={24} height={18} {...props}>
     <g fillRule="evenodd">
       <path fill="#e30a17" d="M0 0h640v480H0z" />
       <path

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC, SVGProps } from 'react';
 
-export const Eng = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 640 480">
+export const Eng: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width={24} height={18} {...props}>
     <g fillRule="evenodd">
       <g strokeWidth="1pt">
         <path
