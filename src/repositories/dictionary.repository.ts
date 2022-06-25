@@ -57,6 +57,10 @@ class DictionaryRepository {
   async deleteDictionary(id: string): Promise<DeleteResult> {
     return await dictionary.deleteOne({ id: +id });
   }
+
+  async getWordWithLowPoint(): Promise<DictionaryType | null> {
+    return await dictionary.findOne({}, { projection: { _id: 0 }, sort: { point: 1 } });
+  }
 }
 
 export const dictionaryRepository = new DictionaryRepository();
