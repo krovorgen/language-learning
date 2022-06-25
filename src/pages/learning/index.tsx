@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -12,10 +12,16 @@ import { Button } from '@alfalab/core-components/button';
 import { LevelStudy } from '@/components/LevelStudy';
 
 import styles from './Learning.module.scss';
+import { wordVoiceActing } from '@/helpers/wordVoiceActing';
 
 function Learning() {
   const [trainingWord, setTrainingWord] = useState<DictionaryType | null>(null);
   const [isCorrect, setIsCorrect] = useState<null | boolean>(null);
+  const [inputValue, setInputValue] = useState('');
+
+  const changeInputValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  }, []);
 
   const getTrainingWord = useCallback(async () => {
     try {
@@ -31,18 +37,9 @@ function Learning() {
     async (e: SyntheticEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      if (!trainingWord) {
-        toast('Введите слово');
-        return;
-      }
+      if (!trainingWord) return;
 
-      const {
-        result: { value: result },
-      } = e.currentTarget.elements as typeof e.currentTarget.elements & {
-        result: { value: string };
-      };
-
-      const answer = result.toLowerCase() === trainingWord.translation.toLowerCase();
+      const answer = inputValue.toLowerCase() === trainingWord.translation.toLowerCase();
 
       setIsCorrect(answer);
 
@@ -50,6 +47,7 @@ function Learning() {
         await axios.patch(`/api/dictionary/${trainingWord.id}`, {
           point: answer ? trainingWord.point + 1 : trainingWord.point - 1,
         });
+        setInputValue('');
         await getTrainingWord();
       } catch ({ response }) {
         catchHandler(response);
@@ -57,7 +55,7 @@ function Learning() {
         toast('Создано');
       }
     },
-    [getTrainingWord, trainingWord],
+    [getTrainingWord, inputValue, trainingWord],
   );
 
   useEffect(() => {
@@ -66,11 +64,22 @@ function Learning() {
     })();
   }, [getTrainingWord]);
 
+  useEffect(() => {
+    trainingWord && wordVoiceActing(trainingWord.word, trainingWord.lang);
+  }, [trainingWord]);
+
   return (
     <div className={styles.root}>
       {trainingWord && (
         <form onSubmit={sendForm} className={styles.form}>
-          <Input name="result" block size="s" error={isCorrect !== null && !isCorrect} />
+          <Input
+            value={inputValue}
+            onChange={changeInputValue}
+            block
+            size="s"
+            required
+            error={isCorrect !== null && !isCorrect}
+          />
           <p>
             Очки: {trainingWord.point} <LevelStudy point={trainingWord.point} />
           </p>
