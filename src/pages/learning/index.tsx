@@ -81,6 +81,7 @@ function Learning() {
             onChange={changeInputValue}
             block
             size="s"
+            placeholder="Перевод"
             required
             error={isCorrect !== null && !isCorrect}
           />
