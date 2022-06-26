@@ -12,9 +12,9 @@ import { LevelStudy } from '@/components/LevelStudy';
 import { wordVoiceActing } from '@/helpers/wordVoiceActing';
 import { GlobalLoader } from '@/components/GlobalLoader';
 import { FlagsIcon } from '@/helpers/FlagsIcon';
+import { DictionaryType } from '@/repositories/types';
 
 import styles from './Learning.module.scss';
-import { DictionaryType } from '@/repositories/types';
 
 function Learning() {
   const [trainingWord, setTrainingWord] = useState<DictionaryType | null>(null);
