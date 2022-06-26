@@ -23,6 +23,7 @@ class DictionaryRepository {
       id: +new Date(),
       point: 0,
       lastRepetition: new Date(),
+      workoutsCount: { correct: 0, incorrect: 0 },
     };
     await dictionary.insertOne(newDictionary);
     return newDictionary;

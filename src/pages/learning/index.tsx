@@ -12,7 +12,7 @@ import { LevelStudy } from '@/components/LevelStudy';
 import { wordVoiceActing } from '@/helpers/wordVoiceActing';
 import { GlobalLoader } from '@/components/GlobalLoader';
 import { FlagsIcon } from '@/helpers/FlagsIcon';
-import { DictionaryType } from '@/repositories/types';
+import { DictionaryType, UpdateDictionaryDtoType } from '@/repositories/types';
 
 import styles from './Learning.module.scss';
 
@@ -42,17 +42,25 @@ function Learning() {
       if (!trainingWord) return;
       setIsLoading(true);
 
-      const answer = inputValue.toLowerCase() === trainingWord.translation.toLowerCase();
+      const isAnswerCorrect = inputValue.toLowerCase() === trainingWord.translation.toLowerCase();
 
-      setIsCorrect(answer);
+      setIsCorrect(isAnswerCorrect);
 
       try {
         await axios.patch(`/api/dictionary/${trainingWord.id}`, {
-          point: answer ? trainingWord.point + 1 : trainingWord.point - 1,
+          point: isAnswerCorrect ? trainingWord.point + 1 : trainingWord.point - 1,
           lastRepetition: new Date(),
-        });
+          workoutsCount: {
+            correct: isAnswerCorrect
+              ? trainingWord.workoutsCount.correct + 1
+              : trainingWord.workoutsCount.correct,
+            incorrect: !isAnswerCorrect
+              ? trainingWord.workoutsCount.incorrect + 1
+              : trainingWord.workoutsCount.incorrect,
+          },
+        } as UpdateDictionaryDtoType);
         setInputValue('');
-        answer ? toast.success('Правильно') : toast.error('Не правильно');
+        isAnswerCorrect ? toast.success('Правильно') : toast.error('Не правильно');
 
         await getTrainingWord();
       } catch ({ response }) {
@@ -93,6 +101,11 @@ function Learning() {
           <p>Слово: {trainingWord.word}</p>
           <p>Перевод: {trainingWord.translation}</p>
           <p>Язык: {FlagsIcon[trainingWord.lang]}</p>
+          <p>
+            Кол-во попыток:{' '}
+            <span className={styles.correctAnswer}>{trainingWord.workoutsCount.correct}</span>/
+            <span className={styles.incorrectAnswer}>{trainingWord.workoutsCount.incorrect}</span>
+          </p>
           <Button view="primary" type="submit" size="s" block loading={isLoading}>
             Проверить
           </Button>
