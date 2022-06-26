@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import BookCheckMIcon from '@alfalab/icons-glyph/BookCheckMIcon';
 import NavigationHomeMIcon from '@alfalab/icons-glyph/NavigationHomeMIcon';
+import { StatsChartMIcon } from '@alfalab/icons-glyph/StatsChartMIcon';
 import { AppRoutes } from '@/helpers/routes';
 
 import styles from './TrainingLink.module.scss';
@@ -11,11 +12,13 @@ import styles from './TrainingLink.module.scss';
 export enum IconNavigationLinkType {
   home = 'home',
   learning = 'learning',
+  statistics = 'statistics',
 }
 
 const navigationLinkIcon = {
   home: <NavigationHomeMIcon />,
   learning: <BookCheckMIcon />,
+  statistics: <StatsChartMIcon />,
 };
 
 type Props = {
