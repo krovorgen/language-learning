@@ -14,6 +14,7 @@ import { LevelStudy } from '@/components/LevelStudy';
 import styles from './Learning.module.scss';
 import { wordVoiceActing } from '@/helpers/wordVoiceActing';
 import { GlobalLoader } from '@/components/GlobalLoader';
+import { FlagsIcon } from '@/components/AddedWordModal';
 
 function Learning() {
   const [trainingWord, setTrainingWord] = useState<DictionaryType | null>(null);
@@ -90,6 +91,7 @@ function Learning() {
           </p>
           <p>Слово: {trainingWord.word}</p>
           <p>Перевод: {trainingWord.translation}</p>
+          <p>Язык: {FlagsIcon[trainingWord.lang]}</p>
           <Button view="primary" type="submit" size="s" block loading={isLoading}>
             Проверить
           </Button>
