@@ -2,29 +2,24 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NextPage } from 'next';
 import { Table } from '@alfalab/core-components/table';
 import { LevelStudy } from '@/components/LevelStudy';
-import { dictionaryRepository, DictionaryType } from '@/repositories/dictionary.repository';
+import { dictionaryRepository } from '@/repositories/dictionary.repository';
 import axios from 'axios';
 import { catchHandler } from '@/helpers/catchHandler';
 import dayjs from 'dayjs';
 import ru from 'dayjs/locale/ru';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { Eng } from '@/components/Flags/Eng';
-import { Tr } from '@/components/Flags/Tr';
 import { SoundWord } from '@/components/SoundWord';
 import { IconNavigationLinkType, NavigationLink } from '@/components/TrainingLink';
 import { AppRoutes } from '@/helpers/routes';
 import { AddedWordLink } from '@/components/AddedWordLink';
 import { NavigationMenu } from '@/components/NavigationMenu';
+import { FlagsIcon } from '@/helpers/FlagsIcon';
+import { DictionaryType } from '@/repositories/types';
 
 import styles from './Root.module.scss';
 
 type Props = {
   dictionary: DictionaryType[];
-};
-
-const FlagsIcon = {
-  eng: <Eng />,
-  tr: <Tr />,
 };
 
 enum SortTableValue {

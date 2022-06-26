@@ -6,15 +6,15 @@ import { IconNavigationLinkType, NavigationLink } from '@/components/TrainingLin
 import { AppRoutes } from '@/helpers/routes';
 import { NavigationMenu } from '@/components/NavigationMenu';
 import { catchHandler } from '@/helpers/catchHandler';
-import { DictionaryType } from '@/repositories/dictionary.repository';
 import { Input } from '@alfalab/core-components/input';
 import { Button } from '@alfalab/core-components/button';
 import { LevelStudy } from '@/components/LevelStudy';
-
-import styles from './Learning.module.scss';
 import { wordVoiceActing } from '@/helpers/wordVoiceActing';
 import { GlobalLoader } from '@/components/GlobalLoader';
-import { FlagsIcon } from '@/components/AddedWordModal';
+import { FlagsIcon } from '@/helpers/FlagsIcon';
+
+import styles from './Learning.module.scss';
+import { DictionaryType } from '@/repositories/types';
 
 function Learning() {
   const [trainingWord, setTrainingWord] = useState<DictionaryType | null>(null);

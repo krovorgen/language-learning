@@ -1,9 +1,8 @@
 import React, { FC, memo, useCallback } from 'react';
 
-import { DictionaryLangType } from '@/repositories/dictionary.repository';
-
 import styles from './SoundWord.module.scss';
 import { wordVoiceActing } from '@/helpers/wordVoiceActing';
+import { DictionaryLangType } from '@/repositories/types';
 
 type Props = {
   word: string;

@@ -1,4 +1,4 @@
-import { DictionaryLangType } from '@/repositories/dictionary.repository';
+import { DictionaryLangType } from '@/repositories/types';
 
 enum LangISO {
   eng = 'en-US',

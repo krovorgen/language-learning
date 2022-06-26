@@ -1,29 +1,10 @@
 import clientPromise from '@/repositories/mongodb';
 import { DeleteResult, UpdateResult } from 'mongodb';
-
-export type DictionaryLangType = 'eng' | 'tr';
-
-export type DictionaryType = {
-  id: number;
-  lang: DictionaryLangType;
-  word: string;
-  translation: string;
-  point: number;
-  lastRepetition: Date;
-};
-
-export type CreateDictionaryDtoType = {
-  lang: DictionaryLangType;
-  word: string;
-  translation: string;
-};
-
-export type UpdateDictionaryDtoType = {
-  word: string;
-  translation: string;
-  point: number;
-  lastRepetition: Date;
-};
+import {
+  CreateDictionaryDtoType,
+  DictionaryType,
+  UpdateDictionaryDtoType,
+} from '@/repositories/types';
 
 const dictionary = clientPromise.db('test').collection<DictionaryType>('dictionary');
 

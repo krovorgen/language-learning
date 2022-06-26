@@ -8,20 +8,10 @@ import { Button } from '@alfalab/core-components/button';
 import { FieldProps, Select } from '@alfalab/core-components/select';
 import { catchHandler } from '@/helpers/catchHandler';
 import { Field } from '@alfalab/core-components/select/';
-import { Eng } from '@/components/Flags/Eng';
-import { Tr } from '@/components/Flags/Tr';
+import { FlagsIcon } from '@/helpers/FlagsIcon';
+import { DictionaryLangType } from '@/repositories/types';
 
 import styles from './AddedWordModal.module.scss';
-
-export enum DictionaryLangType {
-  eng = 'eng',
-  tr = 'tr',
-}
-
-export const FlagsIcon = {
-  eng: <Eng />,
-  tr: <Tr />,
-};
 
 export type OptionsStatus = {
   key: string;
