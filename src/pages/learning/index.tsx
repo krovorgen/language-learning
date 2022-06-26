@@ -13,6 +13,7 @@ import { LevelStudy } from '@/components/LevelStudy';
 
 import styles from './Learning.module.scss';
 import { wordVoiceActing } from '@/helpers/wordVoiceActing';
+import { GlobalLoader } from '@/components/GlobalLoader';
 
 function Learning() {
   const [trainingWord, setTrainingWord] = useState<DictionaryType | null>(null);
@@ -73,7 +74,7 @@ function Learning() {
 
   return (
     <div className={styles.root}>
-      {trainingWord && (
+      {trainingWord ? (
         <form onSubmit={sendForm} className={styles.form}>
           <Input
             value={inputValue}
@@ -92,6 +93,8 @@ function Learning() {
             Проверить
           </Button>
         </form>
+      ) : (
+        <GlobalLoader />
       )}
       <NavigationMenu>
         <NavigationLink href={AppRoutes.home} icon={IconNavigationLinkType.home} />
