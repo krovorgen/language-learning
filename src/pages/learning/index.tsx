@@ -18,6 +18,7 @@ function Learning() {
   const [trainingWord, setTrainingWord] = useState<DictionaryType | null>(null);
   const [isCorrect, setIsCorrect] = useState<null | boolean>(null);
   const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const changeInputValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -36,8 +37,8 @@ function Learning() {
   const sendForm = useCallback(
     async (e: SyntheticEvent<HTMLFormElement>) => {
       e.preventDefault();
-
       if (!trainingWord) return;
+      setIsLoading(true);
 
       const answer = inputValue.toLowerCase() === trainingWord.translation.toLowerCase();
 
@@ -54,6 +55,7 @@ function Learning() {
       } catch ({ response }) {
         catchHandler(response);
       } finally {
+        setIsLoading(false);
       }
     },
     [getTrainingWord, inputValue, trainingWord],
@@ -86,7 +88,7 @@ function Learning() {
           </p>
           <p>Слово: {trainingWord.word}</p>
           <p>Перевод: {trainingWord.translation}</p>
-          <Button view="primary" type="submit" size="s" block>
+          <Button view="primary" type="submit" size="s" block loading={isLoading}>
             Проверить
           </Button>
         </form>
