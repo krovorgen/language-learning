@@ -49,6 +49,7 @@ function Learning() {
       try {
         await axios.patch(`/api/dictionary/${trainingWord.id}`, {
           point: answer ? trainingWord.point + 1 : trainingWord.point - 1,
+          lastRepetition: new Date(),
         });
         setInputValue('');
         answer ? toast.success('Правильно') : toast.error('Не правильно');

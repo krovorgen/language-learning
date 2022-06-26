@@ -138,7 +138,7 @@ const Home: NextPage<Props> = ({ dictionary }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const dictionary = JSON.parse(JSON.stringify(await dictionaryRepository.getDictionary()));
 
   return {
