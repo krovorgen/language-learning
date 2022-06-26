@@ -48,11 +48,12 @@ function Learning() {
           point: answer ? trainingWord.point + 1 : trainingWord.point - 1,
         });
         setInputValue('');
+        answer ? toast.success('Правильно') : toast.error('Не правильно');
+
         await getTrainingWord();
       } catch ({ response }) {
         catchHandler(response);
       } finally {
-        toast('Создано');
       }
     },
     [getTrainingWord, inputValue, trainingWord],
