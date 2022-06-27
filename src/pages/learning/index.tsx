@@ -15,6 +15,7 @@ import { FlagsIcon } from '@/helpers/FlagsIcon';
 import { DictionaryType, UpdateDictionaryDtoType } from '@/repositories/types';
 
 import styles from './Learning.module.scss';
+import { ValidInvalidValues } from '@/components/ValidInvalidValues';
 
 function Learning() {
   const [trainingWord, setTrainingWord] = useState<DictionaryType | null>(null);
@@ -103,8 +104,10 @@ function Learning() {
           <p>Язык: {FlagsIcon[trainingWord.lang]}</p>
           <p>
             Кол-во попыток:{' '}
-            <span className={styles.correctAnswer}>{trainingWord.workoutsCount.correct}</span>/
-            <span className={styles.incorrectAnswer}>{trainingWord.workoutsCount.incorrect}</span>
+            <ValidInvalidValues
+              correct={trainingWord.workoutsCount.correct}
+              incorrect={trainingWord.workoutsCount.incorrect}
+            />
           </p>
           <Button view="primary" type="submit" size="s" block loading={isLoading}>
             Проверить

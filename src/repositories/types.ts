@@ -3,7 +3,7 @@ export enum DictionaryLangType {
   tr = 'tr',
 }
 
-type WorkoutsCountType = {
+export type WorkoutsCountType = {
   correct: number;
   incorrect: number;
 };
@@ -35,4 +35,5 @@ export type UpdateDictionaryDtoType = {
 export type StatisticsType = {
   countWords: number;
   totalPoint: number;
+  totalWorkoutsCount: WorkoutsCountType;
 };

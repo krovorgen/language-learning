@@ -1,0 +1,14 @@
+@import "./src/scss/helpers/variables";
+@import "./src/scss/helpers/mixins";
+
+.root {
+
+}
+
+.correctAnswer {
+  color: #7fff00;
+}
+
+.incorrectAnswer {
+  color: #a52a2a;
+}

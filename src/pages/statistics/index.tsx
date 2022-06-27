@@ -8,13 +8,13 @@ import { dictionaryRepository } from '@/repositories/dictionary.repository';
 import { StatisticsType } from '@/repositories/types';
 
 import styles from './Statistics.module.scss';
+import { ValidInvalidValues } from '@/components/ValidInvalidValues';
 
 type Props = {
   statistics: StatisticsType;
 };
 
 const Statistics: NextPage<Props> = ({ statistics }) => {
-  console.log(statistics);
   return (
     <div className={styles.root}>
       <table className={styles.table}>
@@ -26,6 +26,15 @@ const Statistics: NextPage<Props> = ({ statistics }) => {
           <tr>
             <td>Общее кол-во очков:</td>
             <td>{statistics.totalPoint}</td>
+          </tr>
+          <tr>
+            <td>Общее кол-во верных/неверных попыток:</td>
+            <td>
+              <ValidInvalidValues
+                correct={statistics.totalWorkoutsCount.correct}
+                incorrect={statistics.totalWorkoutsCount.incorrect}
+              />
+            </td>
           </tr>
         </tbody>
       </table>

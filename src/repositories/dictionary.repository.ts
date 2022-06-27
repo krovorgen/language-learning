@@ -5,6 +5,7 @@ import {
   DictionaryType,
   StatisticsType,
   UpdateDictionaryDtoType,
+  WorkoutsCountType,
 } from '@/repositories/types';
 
 const dictionary = clientPromise.db('test').collection<DictionaryType>('dictionary');
@@ -57,10 +58,32 @@ class DictionaryRepository {
     )[0].totalPoint;
   }
 
+  async totalWorkoutsCount(): Promise<WorkoutsCountType> {
+    const correct = (
+      await dictionary
+        .aggregate([{ $group: { _id: null, totalCorrect: { $sum: '$workoutsCount.correct' } } }])
+        .toArray()
+    )[0].totalCorrect;
+
+    const incorrect = (
+      await dictionary
+        .aggregate([
+          { $group: { _id: null, totalIncorrect: { $sum: '$workoutsCount.incorrect' } } },
+        ])
+        .toArray()
+    )[0].totalIncorrect;
+
+    return {
+      correct,
+      incorrect,
+    };
+  }
+
   async getStatistics(): Promise<StatisticsType> {
     return {
       countWords: await this.getCountDictionary(),
       totalPoint: await this.getTotalPoint(),
+      totalWorkoutsCount: await this.totalWorkoutsCount(),
     };
   }
 }
