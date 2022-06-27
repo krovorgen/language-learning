@@ -22,13 +22,13 @@
     border-right: 1px solid #37b5a5;
     border-bottom: 1px solid #37b5a5;
     color: #cad4d6;
+
+    &:last-child {
+      border-right: none;
+    }
   }
 
   tr:last-child td {
     border-bottom: none;
-  }
-
-  td:last-child {
-    border-right: none;
   }
 }
