@@ -10,10 +10,6 @@ import {
 const dictionary = clientPromise.db('test').collection<DictionaryType>('dictionary');
 
 class DictionaryRepository {
-  async getCountDictionary(): Promise<number> {
-    return await dictionary.countDocuments();
-  }
-
   async getDictionary(): Promise<DictionaryType[]> {
     return await dictionary.find({}, { projection: { _id: 0 } }).toArray();
   }
@@ -49,9 +45,22 @@ class DictionaryRepository {
     return await dictionary.findOne({}, { projection: { _id: 0 }, sort: { point: 1 } });
   }
 
+  async getCountDictionary(): Promise<number> {
+    return await dictionary.countDocuments();
+  }
+
+  async getTotalPoint(): Promise<number> {
+    return (
+      await dictionary
+        .aggregate([{ $group: { _id: null, totalPoint: { $sum: '$point' } } }])
+        .toArray()
+    )[0].totalPoint;
+  }
+
   async getStatistics(): Promise<StatisticsType> {
     return {
       countWords: await this.getCountDictionary(),
+      totalPoint: await this.getTotalPoint(),
     };
   }
 }

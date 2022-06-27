@@ -34,4 +34,5 @@ export type UpdateDictionaryDtoType = {
 
 export type StatisticsType = {
   countWords: number;
+  totalPoint: number;
 };

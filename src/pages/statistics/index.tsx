@@ -14,13 +14,18 @@ type Props = {
 };
 
 const Statistics: NextPage<Props> = ({ statistics }) => {
+  console.log(statistics);
   return (
     <div className={styles.root}>
       <table className={styles.table}>
         <tbody>
           <tr>
-            <td>Кол-во слов: {statistics.countWords}</td>
-            <td></td>
+            <td>Кол-во слов: </td>
+            <td>{statistics.countWords}</td>
+          </tr>
+          <tr>
+            <td>Общее кол-во очков:</td>
+            <td>{statistics.totalPoint}</td>
           </tr>
         </tbody>
       </table>
