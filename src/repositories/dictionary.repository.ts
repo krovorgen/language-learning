@@ -3,12 +3,17 @@ import { DeleteResult, UpdateResult } from 'mongodb';
 import {
   CreateDictionaryDtoType,
   DictionaryType,
+  StatisticsType,
   UpdateDictionaryDtoType,
 } from '@/repositories/types';
 
 const dictionary = clientPromise.db('test').collection<DictionaryType>('dictionary');
 
 class DictionaryRepository {
+  async getCountDictionary(): Promise<number> {
+    return await dictionary.countDocuments();
+  }
+
   async getDictionary(): Promise<DictionaryType[]> {
     return await dictionary.find({}, { projection: { _id: 0 } }).toArray();
   }
@@ -42,6 +47,12 @@ class DictionaryRepository {
 
   async getWordWithLowPoint(): Promise<DictionaryType | null> {
     return await dictionary.findOne({}, { projection: { _id: 0 }, sort: { point: 1 } });
+  }
+
+  async getStatistics(): Promise<StatisticsType> {
+    return {
+      countWords: await this.getCountDictionary(),
+    };
   }
 }
 

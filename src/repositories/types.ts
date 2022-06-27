@@ -31,3 +31,7 @@ export type UpdateDictionaryDtoType = {
   lastRepetition?: Date;
   workoutsCount?: WorkoutsCountType;
 };
+
+export type StatisticsType = {
+  countWords: number;
+};
