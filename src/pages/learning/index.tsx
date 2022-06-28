@@ -13,9 +13,9 @@ import { wordVoiceActing } from '@/helpers/wordVoiceActing';
 import { GlobalLoader } from '@/components/GlobalLoader';
 import { FlagsIcon } from '@/helpers/FlagsIcon';
 import { DictionaryType, UpdateDictionaryDtoType } from '@/repositories/types';
+import { ValidInvalidValues } from '@/components/ValidInvalidValues';
 
 import styles from './Learning.module.scss';
-import { ValidInvalidValues } from '@/components/ValidInvalidValues';
 
 function Learning() {
   const [trainingWord, setTrainingWord] = useState<DictionaryType | null>(null);
@@ -117,6 +117,7 @@ function Learning() {
         <GlobalLoader />
       )}
       <NavigationMenu>
+        <NavigationLink href={AppRoutes.statistics} icon={IconNavigationLinkType.statistics} />
         <NavigationLink href={AppRoutes.home} icon={IconNavigationLinkType.home} />
       </NavigationMenu>
     </div>
