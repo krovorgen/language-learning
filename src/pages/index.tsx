@@ -15,6 +15,7 @@ import { AddedWordLink } from '@/components/AddedWordLink';
 import { NavigationMenu } from '@/components/NavigationMenu';
 import { FlagsIcon } from '@/helpers/FlagsIcon';
 import { DictionaryType } from '@/repositories/types';
+import { ValidInvalidValues } from '@/components/ValidInvalidValues';
 
 import styles from './Root.module.scss';
 
@@ -89,6 +90,9 @@ const Home: NextPage<Props> = ({ dictionary }) => {
         <Table.THead>
           <Table.THeadCell>Слово</Table.THeadCell>
           <Table.THeadCell>Перевод</Table.THeadCell>
+          <Table.THeadCell width={100} textAlign="center">
+            Попыток
+          </Table.THeadCell>
           <Table.TSortableHeadCell
             width={100}
             textAlign="center"
@@ -121,6 +125,12 @@ const Home: NextPage<Props> = ({ dictionary }) => {
                 {row.word} <SoundWord word={row.word} lang={row.lang} />
               </Table.TCell>
               <Table.TCell>{row.translation}</Table.TCell>
+              <Table.TCell>
+                <ValidInvalidValues
+                  correct={row.workoutsCount.correct}
+                  incorrect={row.workoutsCount.incorrect}
+                />
+              </Table.TCell>
               <Table.TCell>
                 <LevelStudy point={row.point} />
               </Table.TCell>
