@@ -140,9 +140,14 @@ const Home: NextPage<Props> = ({ dictionary }) => {
           ))}
         </Table.TBody>
       </Table>
+
       <NavigationMenu>
         <NavigationLink href={AppRoutes.statistics} icon={IconNavigationLinkType.statistics} />
-        <AddedWordLink handleModalOpen={handleAddedWordModalOpen} open={openAddedWordModal} />
+        {process.env.NODE_ENV === 'development' ? (
+          <AddedWordLink handleModalOpen={handleAddedWordModalOpen} open={openAddedWordModal} />
+        ) : (
+          <></>
+        )}
         <NavigationLink href={AppRoutes.learning} icon={IconNavigationLinkType.learning} />
       </NavigationMenu>
     </>
