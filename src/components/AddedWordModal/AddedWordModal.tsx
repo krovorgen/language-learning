@@ -29,14 +29,14 @@ export const AddedWordModal: FC<Props> = memo(({ handleModalOpen, open }) => {
 
   const optionsStatus: OptionsStatus[] = [
     {
-      key: DictionaryLangType.eng,
-      content: 'Английский',
-      icon: FlagsIcon[DictionaryLangType.eng],
-    },
-    {
       key: DictionaryLangType.tr,
       content: 'Турецкий',
       icon: FlagsIcon[DictionaryLangType.tr],
+    },
+    {
+      key: DictionaryLangType.eng,
+      content: 'Английский',
+      icon: FlagsIcon[DictionaryLangType.eng],
     },
   ];
 
@@ -68,7 +68,11 @@ export const AddedWordModal: FC<Props> = memo(({ handleModalOpen, open }) => {
       };
 
       try {
-        await axios.post(`/api/dictionary`, { lang, word, translation });
+        await axios.post(`/api/dictionary`, {
+          lang,
+          word: word.toLowerCase(),
+          translation: translation.toLowerCase(),
+        });
 
         handleModalOpen();
       } catch ({ response }) {

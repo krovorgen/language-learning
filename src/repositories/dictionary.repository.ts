@@ -12,7 +12,10 @@ const dictionary = clientPromise.db('test').collection<DictionaryType>('dictiona
 
 class DictionaryRepository {
   async getDictionary(): Promise<DictionaryType[]> {
-    return await dictionary.find({}, { projection: { _id: 0 } }).toArray();
+    return await dictionary
+      .find({}, { projection: { _id: 0 } })
+      .sort({ word: 1 })
+      .toArray();
   }
 
   async getDictionaryById(id: string): Promise<DictionaryType | null> {
