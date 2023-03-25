@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { catchHandler } from '../../../helpers/catchHandler';
+import { catchHandler } from '@/helpers/catchHandler';
 import { dictionaryRepository } from '@/repositories/dictionary.repository';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

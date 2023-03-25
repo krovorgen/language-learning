@@ -13,7 +13,14 @@ const dictionary = clientPromise.db('test').collection<DictionaryType>('dictiona
 class DictionaryRepository {
   async getDictionary(): Promise<DictionaryType[]> {
     return await dictionary
-      .find({}, { projection: { _id: 0 } })
+      .find({ isModerated: true }, { projection: { _id: 0 } })
+      .sort({ word: 1 })
+      .toArray();
+  }
+
+  async getNotModeratedDictionary(): Promise<DictionaryType[]> {
+    return await dictionary
+      .find({ isModerated: false }, { projection: { _id: 0 } })
       .sort({ word: 1 })
       .toArray();
   }
@@ -29,6 +36,7 @@ class DictionaryRepository {
       point: 0,
       lastRepetition: new Date(),
       workoutsCount: { correct: 0, incorrect: 0 },
+      isModerated: false,
     };
     await dictionary.insertOne(newDictionary);
     return newDictionary;
@@ -46,7 +54,10 @@ class DictionaryRepository {
   }
 
   async getWordWithLowPoint(): Promise<DictionaryType | null> {
-    return await dictionary.findOne({}, { projection: { _id: 0 }, sort: { point: 1 } });
+    return await dictionary.findOne(
+      { isModerated: true },
+      { projection: { _id: 0 }, sort: { point: 1 } },
+    );
   }
 
   async getCountDictionary(): Promise<number> {

@@ -16,6 +16,7 @@ export type DictionaryType = {
   point: number;
   lastRepetition: Date;
   workoutsCount: WorkoutsCountType;
+  isModerated: boolean;
 };
 
 export type CreateDictionaryDtoType = {
