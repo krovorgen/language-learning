@@ -1,2 +1,7 @@
 @import "./src/scss/helpers/variables";
 @import "./src/scss/helpers/mixins";
+
+.title {
+  text-align: center;
+  margin-bottom: 40px;
+}

@@ -1,7 +1,12 @@
-import React from 'react';
-
+import React, { FC } from 'react';
 import styles from './ModerationWord.module.scss';
 
-export const ModerationWord = () => {
-  return <div></div>;
+type Props = {
+  id: number;
+  word: string;
+  translation: string;
+};
+
+export const ModerationWord: FC<Props> = ({ id, word, translation }) => {
+  return <li></li>;
 };
