@@ -28,8 +28,8 @@ type Props = {
 
 export const NavigationLink: FC<Props> = memo(({ href, icon }) => {
   return (
-    <Link href={href} passHref>
-      <a className={cn('link-navigation', styles.root)}>{navigationLinkIcon[icon]}</a>
+    <Link href={href} className={cn('link-navigation', styles.root)}>
+      {navigationLinkIcon[icon]}
     </Link>
   );
 });
