@@ -18,6 +18,9 @@ const Moderation: NextPage<Props> = ({ dictionary }) => {
         <Typography.Title className={styles.title} tag="h1">
           Проверка
         </Typography.Title>
+        <Typography.Title className={styles.title} tag="h1" view="xsmall">
+          Новых слов: {dictionary.length}
+        </Typography.Title>
         {!!dictionary.length ? (
           dictionary.map((el) => (
             <ModerationWord key={el.id} id={el.id} word={el.word} translation={el.translation} />

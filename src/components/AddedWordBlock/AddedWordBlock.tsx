@@ -1,4 +1,4 @@
-import React, { FC, memo, SyntheticEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, FC, memo, SyntheticEvent, useCallback, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { Input } from '@alfalab/core-components/input';
@@ -23,6 +23,17 @@ type Props = {
 
 export const AddedWordBlock: FC<Props> = memo(({ confirmCallback }) => {
   const [loadingBtn, setLoadingBtn] = useState(false);
+  const firstInputRef = useRef<HTMLInputElement>(null);
+
+  const [wordValue, setWordValue] = useState('');
+  const [translationValue, setTranslationValue] = useState('');
+
+  const onChangeWordValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setWordValue(e.currentTarget.value);
+  }, []);
+  const onChangeTranslationValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setTranslationValue(e.currentTarget.value);
+  }, []);
 
   const optionsStatus: OptionsStatus[] = [
     {
@@ -54,21 +65,11 @@ export const AddedWordBlock: FC<Props> = memo(({ confirmCallback }) => {
       e.preventDefault();
       setLoadingBtn(true);
 
-      const {
-        word: { value: word },
-        translation: { value: translation },
-        lang: { value: lang },
-      } = e.currentTarget.elements as typeof e.currentTarget.elements & {
-        word: { value: string };
-        translation: { value: string };
-        lang: { value: string };
-      };
-
       try {
         await axios.post(`/api/dictionary`, {
-          lang,
-          word: word.toLowerCase(),
-          translation: translation.toLowerCase(),
+          lang: selectedStatus[0].key,
+          word: wordValue.toLowerCase(),
+          translation: translationValue.toLowerCase(),
         });
 
         confirmCallback && confirmCallback();
@@ -77,16 +78,38 @@ export const AddedWordBlock: FC<Props> = memo(({ confirmCallback }) => {
       } finally {
         toast('Создано');
         setLoadingBtn(false);
+        setWordValue('');
+        setTranslationValue('');
+        if (firstInputRef.current) {
+          firstInputRef.current.focus();
+        }
       }
     },
-    [confirmCallback],
+    [confirmCallback, selectedStatus, translationValue, wordValue],
   );
 
   return (
     <form onSubmit={sendForm} className={styles.form}>
-      <Input label="Новое слово" name="word" block required />
+      <Input
+        value={wordValue}
+        onChange={onChangeWordValue}
+        label="Новое слово"
+        name="word"
+        block
+        required
+        autoComplete="off"
+        ref={firstInputRef}
+      />
 
-      <Input label="Перевод" name="translation" block required />
+      <Input
+        value={translationValue}
+        onChange={onChangeTranslationValue}
+        label="Перевод"
+        name="translation"
+        block
+        required
+        autoComplete="off"
+      />
 
       <Select
         label="Язык"

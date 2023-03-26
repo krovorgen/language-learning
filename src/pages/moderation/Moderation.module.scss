@@ -2,6 +2,11 @@
 @import "./src/scss/helpers/mixins";
 
 .title {
-  margin-bottom: 40px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.text {
+  margin-bottom: 24px;
   text-align: center;
 }
