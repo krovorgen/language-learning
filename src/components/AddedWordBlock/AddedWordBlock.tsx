@@ -84,9 +84,9 @@ export const AddedWordBlock: FC<Props> = memo(({ confirmCallback }) => {
 
   return (
     <form onSubmit={sendForm} className={styles.form}>
-      <Input placeholder="Новое слово" name="word" block required />
+      <Input label="Новое слово" name="word" block required />
 
-      <Input placeholder="Перевод" name="translation" block required />
+      <Input label="Перевод" name="translation" block required />
 
       <Select
         label="Язык"
