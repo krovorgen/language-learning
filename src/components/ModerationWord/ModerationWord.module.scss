@@ -1,2 +1,14 @@
 @import "./src/scss/helpers/variables";
 @import "./src/scss/helpers/mixins";
+
+.inner {
+  display: flex;
+  margin-bottom: 16px;
+  list-style: none;
+
+  > * {
+    &:not(:last-child) {
+      margin-right: 4px;
+    }
+  }
+}

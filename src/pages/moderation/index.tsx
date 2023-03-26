@@ -3,6 +3,7 @@ import { dictionaryRepository } from '@/repositories/dictionary.repository';
 import { NextPage } from 'next';
 import { DictionaryType } from '@/repositories/types';
 import { Typography } from '@alfalab/core-components/typography';
+import { ModerationWord } from '@/components/ModerationWord';
 
 import styles from './Moderation.module.scss';
 
@@ -17,7 +18,13 @@ const Moderation: NextPage<Props> = ({ dictionary }) => {
         <Typography.Title className={styles.title} tag="h1">
           Проверка
         </Typography.Title>
-        {JSON.stringify(dictionary)}
+        {!!dictionary.length ? (
+          dictionary.map((el) => (
+            <ModerationWord key={el.id} id={el.id} word={el.word} translation={el.translation} />
+          ))
+        ) : (
+          <>Слов на проверке нет</>
+        )}
       </div>
     </section>
   );

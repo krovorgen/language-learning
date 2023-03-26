@@ -31,6 +31,7 @@ export type UpdateDictionaryDtoType = {
   point?: number;
   lastRepetition?: Date;
   workoutsCount?: WorkoutsCountType;
+  isModerated?: boolean;
 };
 
 export type StatisticsType = {

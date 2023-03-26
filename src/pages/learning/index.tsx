@@ -100,7 +100,7 @@ function Learning() {
             Очки: {trainingWord.point} <LevelStudy point={trainingWord.point} />
           </p>
           <p>Слово: {trainingWord.word}</p>
-          {process.env.NODE_ENV === 'development' && <p>Перевод: {trainingWord.translation}</p>}
+          {trainingWord.point <= 10 && <p>Перевод: {trainingWord.translation}</p>}
           <p>Язык: {FlagsIcon[trainingWord.lang]}</p>
           <p>
             Кол-во попыток:{' '}
