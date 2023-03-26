@@ -86,7 +86,7 @@ const Home: NextPage<Props> = ({ dictionary }) => {
 
   return (
     <>
-      <Table className={styles.table}>
+      <Table className={styles.table} stickyHeader>
         <Table.THead>
           <Table.THeadCell>Слово</Table.THeadCell>
           <Table.THeadCell>Перевод</Table.THeadCell>
