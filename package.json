@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@alfalab/core-components": "^27.6.2",
-    "@alfalab/icons-classic": "^2.2.0",
-    "@alfalab/icons-glyph": "^2.32.0",
+    "@alfalab/core-components": "^40.0.0",
+    "@alfalab/icons-classic": "^2.4.0",
+    "@alfalab/icons-glyph": "^2.103.0",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "dayjs": "^1.11.3",
