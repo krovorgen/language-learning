@@ -1,10 +1,2 @@
 @import "./src/scss/helpers/variables";
 @import "./src/scss/helpers/mixins";
-
-.form {
-  > * {
-    &:not(:last-child) {
-      margin-bottom: 16px;
-    }
-  }
-}

@@ -29,9 +29,9 @@ enum SortTableValue {
   lang = 'lang',
 }
 
-dayjs.extend(relativeTime).locale(ru);
-
 const Home: NextPage<Props> = ({ dictionary }) => {
+  dayjs.extend(relativeTime).locale(ru);
+
   const [dictionaryData, setDictionaryData] = useState(dictionary);
   const [sortKey, setSortKey] = useState<SortTableValue | undefined>(undefined);
   const [isSortedDesc, setIsSortedDesc] = useState<boolean | undefined>(undefined);

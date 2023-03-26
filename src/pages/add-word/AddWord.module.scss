@@ -1,0 +1,14 @@
+@import "../../scss/helpers/variables";
+@import "../../scss/helpers/mixins";
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.form {
+  width: 100%;
+  max-width: 600px;
+}
