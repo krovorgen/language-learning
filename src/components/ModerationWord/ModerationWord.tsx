@@ -51,9 +51,10 @@ export const ModerationWord: FC<Props> = ({ id, word, translation }) => {
   );
   return (
     <form onSubmit={sendForm} className={styles.inner}>
-      <Input label="Слово" value={wordValue} onChange={onChangeWordValue} size="m" />
+      <Input label="Слово" block value={wordValue} onChange={onChangeWordValue} size="m" />
       <Input
         label="Перевод"
+        block
         value={translationValue}
         onChange={onChangeTranslationValue}
         size="m"
